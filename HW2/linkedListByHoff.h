@@ -29,7 +29,6 @@ void nodeConnect(struct biDirNode *pre, struct biDirNode *new){
 }
 
 struct biDirNode* nodeDelete(struct biDirNode *head, int target){
-    int choice=0 ;
     struct biDirNode *duplicateHead = head->nextNode ;
 
     if(head->value == target){
@@ -40,10 +39,8 @@ struct biDirNode* nodeDelete(struct biDirNode *head, int target){
     }else{
         struct biDirNode *n = head ;
 
-        //printf("Start traversal till the value of curNode is target:\n") ;
         int k=1 ;
         while(n->value != target){
-            //printf("The no.%d cycle, the value of curNode is %d.\n", k, n->value) ;
             n = n->nextNode ;
             k++ ;
         }
@@ -51,12 +48,36 @@ struct biDirNode* nodeDelete(struct biDirNode *head, int target){
         struct biDirNode *afterT = n->nextNode ;
         nodeConnect(beforeT, afterT) ;
         return head ;
-    //printf("TEST POINT!") ;
     }
 }
 
-void freeNode(struct biDirNode *start){
-    free(start) ;
+void printLinkedList(struct biDirNode *n, int amount){
+    printf("[") ;
+    for(int i=0; i<amount; i++){
+        printf("%d, ", n->value) ;
+        n = n->nextNode ;
+    }
+    printf("\b\b]") ;
+}
+
+void printLinkedListReverse(struct biDirNode *n, int amount){
+    printf("[") ;
+    for(int i=amount-1; i>=0; i--){
+        printf("%d, ", n->value) ;
+        n = n->preNode ;
+    }
+    printf("\b\b]") ;
+}
+
+void printLinkedListReverseSpecial(struct biDirNode *n, int amount){
+    for(int i=amount-1; i>=0; i--){
+        printf("%d ", n->value) ;
+        n = n->preNode ;
+    }
+}
+
+void freeNode(struct biDirNode *head){
+    free(head) ;
 }
 
 #endif //SUMMER_DS_HW_LINKEDLISTBYHOFF_H

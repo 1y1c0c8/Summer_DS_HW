@@ -39,12 +39,7 @@ int main(){
 //    freeNode(n) ;
 //    struct biDirNode *head = nodes[0] ;
 
-    printf("[") ;
-    for(int i=0; i<amount-1; i++){
-        printf("%d, ",newHead->value) ;
-        newHead = newHead->nextNode ;
-    }
-    printf("\b\b]") ;
+    printLinkedList(newHead, amount-1) ;
 
     //printf("STOP!") ;
 

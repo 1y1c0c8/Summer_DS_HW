@@ -33,12 +33,7 @@ int main(){
 
     nodeConnect(oddTail, even) ;
 
-    printf("[") ;
-    for(int i=0; i<amount; i++){
-        printf("%d, ", odd->value) ;
-        odd = odd->nextNode ;
-    }
-    printf("\b\b]") ;
+    printLinkedList(odd, amount) ;
 
     return 0 ;
 }

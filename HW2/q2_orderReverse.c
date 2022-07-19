@@ -17,12 +17,9 @@ int main(){
     }
 
     struct biDirNode *tail = nodes[amount-1] ;
-    printf("[") ;
-    for(int i=amount-1; i>=0; i--){
-        printf("%d, ", tail->value) ;
-        tail = tail->preNode ;
-    }
-    printf("\b\b]") ;
+
+    printLinkedListReverse(tail, amount) ;
+
 
     //printf("STOP!") ;
 
