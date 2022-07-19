@@ -41,10 +41,10 @@ int main(){
 
     printf("[") ;
     for(int i=0; i<amount-1; i++){
-        printf("%d ",newHead->value) ;
+        printf("%d, ",newHead->value) ;
         newHead = newHead->nextNode ;
     }
-    printf("\b]") ;
+    printf("\b\b]") ;
 
     //printf("STOP!") ;
 

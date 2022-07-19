@@ -16,12 +16,29 @@ int main(){
 
     }
 
-    struct biDirNode *odd =
+    struct biDirNode *odd = nodeCreate(nodes[0]->value) ;
+    struct biDirNode *oddTail = odd ;
+    struct biDirNode *even = nodeCreate(nodes[1]->value) ;
+    struct biDirNode *evenTail = even ;
 
-    for(int i=0; i<amount; i++){
-
+    for(int i=2; i<amount; i++){
+        if(i%2 == 0){
+            nodeConnect(oddTail, nodes[i]) ;
+            oddTail = oddTail->nextNode ;
+        }else {
+            nodeConnect(evenTail, nodes[i]);
+            evenTail = evenTail->nextNode;
+        }
     }
 
+    nodeConnect(oddTail, even) ;
+
+    printf("[") ;
+    for(int i=0; i<amount; i++){
+        printf("%d, ", odd->value) ;
+        odd = odd->nextNode ;
+    }
+    printf("\b\b]") ;
 
     return 0 ;
 }
