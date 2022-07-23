@@ -1,47 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "linkedListByHoff.h"
+#include "singleLinkedListByHoff.h"
 
 int main(){
+    printf("How many nodes do you want?\n") ;
     int amount=0 ;
-    printf("How many nodes do you want:\n") ;
     scanf("%d", &amount) ;
 
+
+    struct node *nodes[amount];
     printf("Please key in the elements seperated by space:\n") ;
-    int elements[amount] ;
     for(int i=0; i<amount; i++){
         int value=0 ;
         scanf("%d", &value) ;
-        elements[i] = value ;
-    }
+        nodes[i] = singleNodeCreate(value) ;
 
-    struct biDirNode *nodes[amount] ;
-    for(int i=0; i<amount; i++){
-        nodes[i] = nodeCreate(elements[i]) ;
+        if(i!=0){
+            singleNodeConnect(nodes[i-1], nodes[i]) ;
+        }
     }
-
-    for(int i=0; i<amount-1; i++)
-        nodeConnect(nodes[i], nodes[i+1]) ;
 
     printf("Key in the element you want to eliminate:\n") ;
-
     int target=0 ;
     scanf("%d", &target) ;
-    struct biDirNode *newHead = nodeDelete(nodes[0], target) ;
+
+    struct node *newNode = singleNodeDelete(nodes[0], target) ;
+
+    printSingleLinkedList(newNode, amount-1) ;
 
 
-    //printf("PRINT\n") ;
-//    struct biDirNode *n = ans ;
-//    struct biDirNode *pre = ans->preNode ;
-//    struct biDirNode *next = ans->nextNode ;
-
-//    nodeConnect(pre, next) ;
-//    freeNode(n) ;
-//    struct biDirNode *head = nodes[0] ;
-
-    printLinkedList(newHead, amount-1) ;
-
-    //printf("STOP!") ;
-
-    return 0 ;
+    return 0;
 }

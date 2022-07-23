@@ -31,9 +31,11 @@ void palindromeCheck(struct biDirCharNode *head, struct biDirCharNode *tail, int
 }
 
 int main(){
+    printf("How long is the string?\n") ;
     int amount=0 ;
     scanf("%d", &amount) ;
 
+    printf("Please key in the string in lower case format:\n") ;
     struct biDirCharNode *nodes[amount] ;
     char t ;
     scanf("%c", &t) ;

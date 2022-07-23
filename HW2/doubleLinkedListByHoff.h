@@ -14,7 +14,7 @@ struct biDirNode{
     struct biDirNode *nextNode ;
 };
 
-struct biDirNode* nodeCreate(int value){
+struct biDirNode* doubleNodeCreate(int value){
     struct biDirNode *newNode ;
     newNode = malloc(sizeof(struct biDirNode)) ;
     newNode->preNode = NULL ;
@@ -23,12 +23,12 @@ struct biDirNode* nodeCreate(int value){
     return newNode ;
 }
 
-void nodeConnect(struct biDirNode *pre, struct biDirNode *new){
+void doubleNodeConnect(struct biDirNode *pre, struct biDirNode *new){
     pre->nextNode = new ;
     new->preNode = pre ;
 }
 
-struct biDirNode* nodeDelete(struct biDirNode *head, int target){
+struct biDirNode* doubleNodeDelete(struct biDirNode *head, int target){
     struct biDirNode *duplicateHead = head->nextNode ;
 
     if(head->value == target){
@@ -46,12 +46,12 @@ struct biDirNode* nodeDelete(struct biDirNode *head, int target){
         }
         struct biDirNode *beforeT = n->preNode ;
         struct biDirNode *afterT = n->nextNode ;
-        nodeConnect(beforeT, afterT) ;
+        doubleNodeConnect(beforeT, afterT) ;
         return head ;
     }
 }
 
-void printLinkedList(struct biDirNode *n, int amount){
+void printDoubleLinkedList(struct biDirNode *n, int amount){
     printf("[") ;
     for(int i=0; i<amount; i++){
         printf("%d, ", n->value) ;
@@ -60,7 +60,7 @@ void printLinkedList(struct biDirNode *n, int amount){
     printf("\b\b]") ;
 }
 
-void printLinkedListReverse(struct biDirNode *n, int amount){
+void printDoubleLinkedListReverse(struct biDirNode *n, int amount){
     printf("[") ;
     for(int i=amount-1; i>=0; i--){
         printf("%d, ", n->value) ;
@@ -69,14 +69,14 @@ void printLinkedListReverse(struct biDirNode *n, int amount){
     printf("\b\b]") ;
 }
 
-void printLinkedListReverseSpecial(struct biDirNode *n, int amount){
+void printDoubleLinkedListReverseSpecial(struct biDirNode *n, int amount){
     for(int i=amount-1; i>=0; i--){
         printf("%d ", n->value) ;
         n = n->preNode ;
     }
 }
 
-void freeNode(struct biDirNode *head){
+void freeDoubleNode(struct biDirNode *head){
     free(head) ;
 }
 

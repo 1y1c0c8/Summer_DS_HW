@@ -1,42 +1,53 @@
 #include <stdio.h>
-#include "linkedListByHoff.h"
-
-int isOdd(int value){
-    return (value)%2 ;
-}
+#include <stdlib.h>
+#include "singleLinkedListByHoff.h"
 
 int main(){
+    printf("How many nodes do you want:\n") ;
     int amount=0 ;
     scanf("%d", &amount) ;
 
-    struct biDirNode *nodes[amount] ;
+    printf("Please key in the elements seperated by space:\n") ;
+    struct node *nodes[amount] ;
     for(int i=0; i<amount; i++){
-        int value ;
+        int value=0 ;
         scanf("%d", &value) ;
-        nodes[i] = nodeCreate(value) ;
-
-        if(i>0)
-            nodeConnect(nodes[i-1], nodes[i]) ;
+        nodes[i] = singleNodeCreate(value) ;
+        if(i!=0)
+            singleNodeConnect(nodes[i-1], nodes[i]) ;
     }
+    nodes[amount-1]->nextNode = nodes[0] ;
 
-    struct biDirNode *newHead = nodeCreate(1) ;
-    struct biDirNode *n = nodes[0] ;
-    struct biDirNode *tail = newHead ;
+    struct node *traversal = nodes[0] ;
+//    struct node *new ;
 
-    int i=0;
-    int evenValueAmount=0 ;
-    while(i<amount){
-        if(!isOdd(n->value)) {
-            nodeConnect(tail, n);
-            tail = tail->nextNode ;
-            evenValueAmount++ ;
+    int remainNode=amount ;
+    for(int i=0; i<amount; i++){
+        if((traversal->value)%2){
+            remainNode-- ;
         }
-        n = n->nextNode ;
-        i++ ;
+        traversal = traversal->nextNode ;
     }
 
-    printLinkedListReverseSpecial(tail, evenValueAmount) ;
+    struct node *newNodes[remainNode] ;
+    traversal = nodes[0] ;
+    int index=remainNode-1 ;
+    for(int i=0; i<amount; i++){
+        if(!(traversal->value%2)) {
+            newNodes[index] = traversal;
+            index-- ;
+        }
+        traversal = traversal->nextNode ;
+    }
 
+    for(int i=0; i<remainNode; i++){
+        if(i!=0)
+            singleNodeConnect(newNodes[i-1], newNodes[i]) ;
+    }
+    newNodes[remainNode-1]->nextNode = newNodes[0] ;
+
+    printf("After processed:\n") ;
+    printSingleLinkedListSpecial(newNodes[0], remainNode) ;
 
     return 0 ;
 }

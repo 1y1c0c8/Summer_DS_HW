@@ -1,39 +1,44 @@
 #include <stdio.h>
-#include "linkedListByHoff.h"
+#include <stdlib.h>
+#include "singleLinkedListByHoff.h"
 
-int main(){
-    int amount=0 ;
-    scanf("%d", &amount) ;
+int main() {
+    printf("How many nodes do you want?\n");
+    int amount = 0;
+    scanf("%d", &amount);
 
-    struct biDirNode *nodes[amount] ;
-    for(int i=0; i<amount; i++){
-        int value ;
-        scanf("%d", &value) ;
-        nodes[i] = nodeCreate(value) ;
+    struct node *nodes[amount];
+    printf("Please key in the elements seperated by space:\n");
+    for (int i = 0; i < amount; i++) {
+        int value = 0;
+        scanf("%d", &value);
+        nodes[i] = singleNodeCreate(value);
 
-        if(i>0)
-            nodeConnect(nodes[i-1], nodes[i]) ;
-
+        if (i != 0)
+            singleNodeConnect(nodes[i - 1], nodes[i]);
     }
 
-    struct biDirNode *odd = nodeCreate(nodes[0]->value) ;
-    struct biDirNode *oddTail = odd ;
-    struct biDirNode *even = nodeCreate(nodes[1]->value) ;
-    struct biDirNode *evenTail = even ;
+    struct node *evenLLHead = singleNodeCreate(-1);
+    struct node *evenLLTail = evenLLHead;
+    struct node *oddLLHead = singleNodeCreate(-1);
+    struct node *oddLLTail = oddLLHead;
+    struct node *traversal = nodes[0];
 
-    for(int i=2; i<amount; i++){
-        if(i%2 == 0){
-            nodeConnect(oddTail, nodes[i]) ;
-            oddTail = oddTail->nextNode ;
-        }else {
-            nodeConnect(evenTail, nodes[i]);
-            evenTail = evenTail->nextNode;
+    for (int i = 0; i < amount; i++) {
+        if (i % 2) {
+            oddLLTail->nextNode = traversal;
+            oddLLTail = oddLLTail->nextNode;
+        } else {
+            evenLLTail->nextNode = traversal;
+            evenLLTail = evenLLTail->nextNode;
         }
+        traversal = traversal->nextNode;
     }
 
-    nodeConnect(oddTail, even) ;
+    struct node *newHead = evenLLHead->nextNode;
+    evenLLTail->nextNode = oddLLHead->nextNode;
 
-    printLinkedList(odd, amount) ;
+    printSingleLinkedList(newHead, amount);
 
-    return 0 ;
+    return 0;
 }
