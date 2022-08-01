@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct tNode{
     struct tNode *fNode ;
@@ -10,6 +11,7 @@ struct tNode{
     struct tNode *lChild ;
     struct tNode *rChild ;
     int curMode ;
+    int order ;
 };
 
 void nextCurNode(struct tNode **curNode, struct tNode *root, bool *arrive){
@@ -32,6 +34,7 @@ struct tNode* tCreate(struct tNode **curNode, int value, bool *arriveP, struct t
         root->lChild = NULL ;
         root->rChild = NULL ;
         root->curMode = 1 ;
+        root->order = 1 ;
 
         (*rootP) = root ;
         (*curNode) = root ;
@@ -48,6 +51,7 @@ struct tNode* tCreate(struct tNode **curNode, int value, bool *arriveP, struct t
             newTNode->lChild = NULL ;
             newTNode->rChild = NULL ;
             newTNode->curMode = 1 ;
+            newTNode->order = 2*(newTNode->fNode->order) ;
 
             (*curNode) = newTNode ;
         }
@@ -65,6 +69,7 @@ struct tNode* tCreate(struct tNode **curNode, int value, bool *arriveP, struct t
             newTNode->lChild = NULL ;
             newTNode->rChild = NULL ;
             newTNode->curMode = 1 ;
+            newTNode->order = 2*(newTNode->fNode->order) ;
 
             (*curNode) = newTNode ;
         }
@@ -73,11 +78,23 @@ struct tNode* tCreate(struct tNode **curNode, int value, bool *arriveP, struct t
     }
 }
 
+
 // .lChild -> .fNode -> .rChild
 void inorderTraversal(struct tNode **root){
     if((*root)->lChild!=NULL)
         inorderTraversal(&(*root)->lChild) ;
     printf("%d ", (*root)->value) ;
+    if((*root)->rChild!=NULL)
+        inorderTraversal(&(*root)->rChild) ;
+}
+
+void inorderTraversalII(struct tNode **root, struct tNode *nodesHeadP){
+    if((*root)->lChild!=NULL)
+        inorderTraversal(&(*root)->lChild) ;
+//    printf("%d ", (*root)->value) ;
+
+    *( nodesHeadP+((*root)->order)*(sizeof(struct tNode)) ) = *(*root) ;
+
     if((*root)->rChild!=NULL)
         inorderTraversal(&(*root)->rChild) ;
 }
