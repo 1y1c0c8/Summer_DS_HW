@@ -3,39 +3,49 @@
 
 #include <iostream>
 #include <stack>
+#include <queue>
+#include <vector>
+
 using namespace std ;
 
-void BFS(int * graph, int* check, int amount){
-    stack<int> lineup ;
-    cout << "BFS starting from vertex 1: " ;
+typedef struct {
+    int start ;
+    int end ;
+    int length ;
+}edge;
 
-    int index = 0 ;
-    int checkNum = 0 ;
-    while(checkNum!=amount){
-        if(index==0) {
-            lineup.push(index + 1);
-            *(check+(index+1)) = 1 ;
+void BFS(int * graph, int* check, int amount){
+
+}
+
+void DFS(int *graph, int *check, int amount){
+    stack<int> lineup ;
+
+    int index=0 ;
+    while(index!=amount){
+
+        if(index == 0){
+            lineup.push(2) ;
+            *(check+2) = 1 ;
         }
         else{
             if(!lineup.empty()){
-                int temp = lineup.top() ;
-                cout << temp << " " ;
+                int top = lineup.top() ;
                 lineup.pop() ;
-
-                for(int j=amount-1; j>=0; j--){
-                    if(*(graph+(4*temp+j))==1 && *(check+j)==0) {
-                        lineup.push(j);
-                        *(check+j) = 1 ;
+                cout << top << " " ;
+                for(int i=amount-1; i>=0; i--){
+                    if(*(graph+top*amount+i) == 1 && *(check+i) == 0) {
+                        lineup.push(i);
+                        *(check+i) = 1 ;
                     }
                 }
             }
         }
 
+        index=0 ;
         for(int i=0; i<amount; i++){
-            checkNum += *(check+i) ;
+            index += *(check+i) ;
         }
-
-        index++ ;
     }
 
     while(!lineup.empty()){
