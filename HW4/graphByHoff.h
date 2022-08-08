@@ -44,4 +44,32 @@ void BFS(int * graph, int* check, int amount){
     }
 }
 
+void kruskal(vector<edge> edges, int *check, int amount){
+
+    int index=0 ;
+    int totalLength = 0;
+    auto p = edges.end()-1 ;
+    while(index!=amount-1){
+
+        if(*(check+p->start)==0 || *(check+p->end)==0){
+            if(*(check+p->start) == 0)  *(check+p->start) = 1 ;
+            else    *(check+p->end) = 1 ;
+
+            totalLength += p->length ;
+
+            cout << p->start << "--" << p->end << "==" << p->length << "\n" ;
+
+        }
+
+        p-- ;
+
+        index=0 ;
+        for(int i=0; i<amount; i++){
+            index += *(check+i) ;
+        }
+    }
+
+    cout << "Minimum Cost Spanning Tree: " << totalLength ;
+}
+
 #endif //SUMMERDS_HW_GRAPHBYHOFF_H
